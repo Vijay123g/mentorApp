@@ -1,0 +1,39 @@
+<h2>Course Details</h2>
+
+<button (click)="toggleAddCourse()">Add New Course</button>
+
+<div *ngIf="isAddingCourse">
+  <form (submit)="createCourse()">
+    <label for="title">Title:</label>
+    <input id="title" [(ngModel)]="newCourse.title" name="title" required>
+
+    <label for="description">Description:</label>
+    <input id="description" [(ngModel)]="newCourse.description" name="description" required>
+
+    <label for="facultyId">Faculty:</label>
+    <select id="facultyId" [(ngModel)]="newCourse.facultyId" name="facultyId">
+      <option *ngFor="let faculty of facultyList" [value]="faculty.user_id">
+        {{ faculty.name }}
+      </option>
+    </select>
+
+    <button type="submit">Create Course</button>
+  </form>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Assigned Faculty</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let course of courseList">
+      <td>{{ course.course_title }}</td>
+      <td>{{ course.course_description }}</td>
+      <td>{{ course.faculty_name }}</td>
+    </tr>
+  </tbody>
+</table>

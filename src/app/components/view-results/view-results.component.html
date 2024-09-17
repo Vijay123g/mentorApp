@@ -1,0 +1,23 @@
+<div>
+  <div class="content-center">
+  <h2>Exam/Assignment Results</h2>
+  <p>{{ resultMessage }}</p>
+</div>
+<div class="form">
+  <div *ngIf="results.length > 0; else noResults">
+    <mat-card *ngFor="let result of results">
+      <mat-card-header>
+        <mat-card-title>Question {{ result.question_id }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>Your Answer:</strong> {{ result.answer_text }}</p>
+        <p><strong>Status:</strong> {{ result.validation_status ? 'Passed' : 'Awaiting' }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+  
+  <ng-template #noResults>
+    <p>No results available.</p>
+  </ng-template>
+</div>

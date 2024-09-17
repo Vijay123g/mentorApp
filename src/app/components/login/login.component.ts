@@ -10,6 +10,8 @@ import { AuthService } from "src/app/services/auth.service";
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  errorMessage: string | undefined;
+  successMessage: string | undefined;
 
   constructor(private authService: AuthService) {
     this.loginForm = new FormGroup({})
@@ -25,7 +27,6 @@ export class LoginComponent implements OnInit {
       email: new FormControl("", [Validators.required, Validators.email]),
       password: new FormControl("", [
         Validators.required,
-        Validators.minLength(7),
       ]),
     });
   }
@@ -33,6 +34,12 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.authService
       .login(this.loginForm.value.email, this.loginForm.value.password)
-      .subscribe();
+      .subscribe({
+        next: () => {
+        },
+        error: (error) => {
+          this.errorMessage = `Login failed: ${error.message}`;
+        }
+      });
   }
 }

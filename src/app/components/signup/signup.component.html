@@ -1,30 +1,19 @@
-<form [formGroup]="signupForm" (ngSubmit)="signup()" novalidate>
-    <mat-form-field>
-      <mat-label>First name</mat-label>
-      <input matInput placeholder="Ex. Jon" formControlName="name" />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Email</mat-label>
-      <input matInput placeholder="Ex. Jon" formControlName="email" />
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Password</mat-label>
-      <input
-        matInput
-        type="password"
-        placeholder="Ex. Jon"
-        formControlName="password"
-      />
-    </mat-form-field>
-    <mat-checkbox formControlName="Student" required>
-        Student
-      </mat-checkbox>
-    <button
-      color="accent"
-      [disabled]="!signupForm.valid"
-      mat-raised-button
-      type="submit"
-    >
-      <span>Sign up</span>
-    </button>
-  </form>
+<div class="login-container">
+  <div class="login-left">
+    <h2>Sign Up! 👋</h2>
+    <p>Fill in the form to create an account.</p>
+    <form [formGroup]="signupForm" (ngSubmit)="signup()" novalidate>
+      <label for="name">Name</label>
+      <input type="text" id="name" formControlName="name" placeholder="Ex. Vijay">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email" placeholder="abc@gmail.com">
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="password" placeholder="password">
+      <input type="hidden" formControlName="role" />
+      <button type="submit" class="btn btn-signin" [disabled]="!signupForm.valid">Sign Up</button>
+    </form>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+    <p>Already have an account? <a routerLink="/login">Log In</a></p>
+  </div>
+</div>

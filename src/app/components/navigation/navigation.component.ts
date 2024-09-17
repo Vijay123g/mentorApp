@@ -10,6 +10,7 @@ import { AuthService } from "src/app/services/auth.service";
 })
 export class NavigationComponent implements OnInit {
   isAuthenticated = false;
+  userRole: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
