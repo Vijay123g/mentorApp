@@ -1,18 +1,24 @@
-<h2>Assign Course to Faculty</h2>
-<form [formGroup]="assignCourseForm" (ngSubmit)="assignCourse()">
-  <label for="courseId">Course:</label>
-  <select id="courseId" formControlName="courseId">
-    <option *ngFor="let course of coursesList" [value]="course.id">
-      {{ course.title }}
-    </option>
-  </select>
+<div class="assign-course-form">
+  <h2>Assign Course to Faculty</h2>
+  <form [formGroup]="assignCourseForm" (ngSubmit)="assignCourse()">
+    <mat-form-field appearance="fill">
+      <mat-label>Select Course</mat-label>
+      <mat-select formControlName="courseId">
+        <mat-option *ngFor="let course of coursesList" [value]="course.id">
+          {{ course.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <label for="facultyId">Faculty:</label>
-  <select id="facultyId" formControlName="facultyId">
-    <option *ngFor="let faculty of facultyList" [value]="faculty.user_id">
-      {{ faculty.name }}
-    </option>
-  </select>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Faculty</mat-label>
+      <mat-select formControlName="facultyId">
+        <mat-option *ngFor="let faculty of facultyList" [value]="faculty.user_id">
+          {{ faculty.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <button type="submit" [disabled]="assignCourseForm.invalid">Assign Course</button>
-</form>
+    <button mat-raised-button color="primary" type="submit" [disabled]="assignCourseForm.invalid">Assign Course</button>
+  </form>
+</div>

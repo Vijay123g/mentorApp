@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Router } from "@angular/router";
+  import { Injectable } from "@angular/core";
+  import { HttpClient, HttpHeaders } from "@angular/common/http";
+  import { Router } from "@angular/router";
 
 import { Observable, BehaviorSubject } from "rxjs";
 import { first, catchError, tap } from "rxjs/operators";
@@ -27,7 +27,19 @@ export class AuthService {
     private http: HttpClient,
     private errorHandlerService: ErrorHandlerService,
     private router: Router
-  ) {}
+  ) {
+    this.loadUserFromLocalStorage();
+  }
+
+  private loadUserFromLocalStorage(): void {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+
+    if (token && role) {
+      this.isUserLoggedIn$.next(true);
+      this.userRole$.next(role);
+    }
+  }
 
   signup(user: Omit<User, "id">): Observable<User> {
     return this.http
@@ -52,48 +64,49 @@ export class AuthService {
       );
   }
 
-  login(
-    email: Pick<User, "email">,
-    password: Pick<User, "password">
-  ): Observable<{
-    token: string;
-    userId: string;
-    role: string;
-    name?: string; 
-  }> {
-    return this.http
-    .post<{ token: string; userId: string; role: string ;name: string; }>(
+login(
+  email: Pick<User, "email">,
+  password: Pick<User, "password">
+): Observable<{
+  token: string;
+  userId: string;
+  role: string;
+  name?: string;
+}> {
+  return this.http
+    .post<{ token: string; userId: string; role: string; name: string }>(
       `${this.url}/login`,
       { email, password },
-      this.httpOptions)
-      .pipe(
-        first(),
-        tap((tokenObject: { token: string; userId: string; role: string;name: string;}) => {
-          localStorage.setItem("token", tokenObject.token);
-          localStorage.setItem("userId", tokenObject.userId);
-          localStorage.setItem("role", tokenObject.role);   
-          localStorage.setItem("name" ,tokenObject.name); 
+      this.httpOptions
+    )
+    .pipe(
+      first(),
+      tap((tokenObject) => {
+        localStorage.setItem("token", tokenObject.token);
+        localStorage.setItem("userId", tokenObject.userId);
+        localStorage.setItem("role", tokenObject.role);
+        localStorage.setItem("name", tokenObject.name);
 
-          this.isUserLoggedIn$.next(true);
-          this.userRole$.next(tokenObject.role); 
+        this.isUserLoggedIn$.next(true);
+        this.userRole$.next(tokenObject.role);
 
-          if (tokenObject.role === 'Admin') {
-            this.router.navigate(["/admin"]);
-          } else if (tokenObject.role === 'Faculty') {
-            this.router.navigate(["/faculty"]);
-          } else if (tokenObject.role === 'Student') {
-            this.router.navigate(["/student"]);
-          }
-        }),
-        catchError(
-          this.errorHandlerService.handleError<{
-            token: string;
-            userId: string;
-            role: string;
-          }>("login")
-        )
-      );
-  }
+        if (tokenObject.role === 'Admin') {
+          this.router.navigate(["/admin"]);
+        } else if (tokenObject.role === 'Faculty') {
+          this.router.navigate(["/faculty"]);
+        } else if (tokenObject.role === 'Student') {
+          this.router.navigate(["/student"]);
+        }
+      }),
+      catchError(this.errorHandlerService.handleError<{
+        token: string;
+        userId: string;
+        role: string;
+        name: string;
+      }>("login"))
+    );
+}
+
 
   getRole(): string {
     return localStorage.getItem("role") || 'Student'; 
@@ -106,4 +119,24 @@ export class AuthService {
     this.userRole$.next('Student');
     this.router.navigate(["/login"]);
   }
+
+  getCounts(): Observable<{ studentCount: number; facultyCount: number;coursesCount : number; }> {
+    return this.http
+      .get<{ studentCount: number; facultyCount: number ;coursesCount : number;}>(
+        `${this.adminUrl}/counts`,
+        this.httpOptions
+      )
+      .pipe(
+        first(),
+        catchError(this.errorHandlerService.handleError<{
+          studentCount: number;
+          facultyCount: number;
+          coursesCount : number;
+        }>("getCounts"))
+      );
+  }
+  
+
+
 }
+

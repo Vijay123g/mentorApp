@@ -1,0 +1,34 @@
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.questions-list {
+  list-style-type: none;
+  padding: 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-top: 20px;
+  background-color: #fafafa;
+}
+
+.question-item {
+  padding: 15px;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.question-item:last-child {
+  border-bottom: none;
+}
+
+.no-questions {
+  text-align: center;
+  font-style: italic;
+  color: #757575;
+}
+
+h3 {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  color: #3f51b5;
+}

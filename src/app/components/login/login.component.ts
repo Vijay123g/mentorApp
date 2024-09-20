@@ -1,6 +1,7 @@
+// login.component.ts
+
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-
 import { AuthService } from "src/app/services/auth.service";
 
 @Component({
@@ -15,7 +16,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService) {
     this.loginForm = new FormGroup({})
-
   }
 
   ngOnInit(): void {
@@ -25,21 +25,24 @@ export class LoginComponent implements OnInit {
   createFormGroup(): FormGroup {
     return new FormGroup({
       email: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", [
-        Validators.required,
-      ]),
+      password: new FormControl("", [Validators.required]),
     });
   }
 
   login(): void {
-    this.authService
-      .login(this.loginForm.value.email, this.loginForm.value.password)
-      .subscribe({
-        next: () => {
-        },
-        error: (error) => {
-          this.errorMessage = `Login failed: ${error.message}`;
-        }
-      });
+    if (this.loginForm.valid) {
+      this.authService
+        .login(this.loginForm.value.email, this.loginForm.value.password)
+        .subscribe({
+          next: () => {
+            this.successMessage = "Login successful!";
+            this.errorMessage = undefined;
+          },
+          error: (error) => {
+            this.errorMessage = error.error?.message || "Login failed: Invalid credentials or server error";
+            this.successMessage = undefined;
+          },
+        });
+    }
   }
 }

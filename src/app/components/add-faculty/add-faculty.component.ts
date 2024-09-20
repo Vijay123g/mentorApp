@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-faculty',
@@ -11,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class AddFacultyComponent implements OnInit {
   facultyForm: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router,private snackBar: MatSnackBar) {
     this.facultyForm = new FormGroup({});
   }
 
@@ -31,6 +32,7 @@ export class AddFacultyComponent implements OnInit {
   addFaculty(): void {
     if (this.facultyForm.valid) {
       this.authService.createFaculty(this.facultyForm.value).subscribe(() => {
+        this.snackBar.open(' Faculty created successfully!', 'Close', { duration: 2000 });
         this.router.navigate(['admin/faculty-details']);
       });
     }

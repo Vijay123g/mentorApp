@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class QuestionService {
   private apiUrl = 'http://localhost:3000/question/question';
+  private baseUrl ='http://localhost:3000/question';
 
   constructor(private http: HttpClient) {}
 
@@ -16,5 +17,9 @@ export class QuestionService {
 
   getQuestionsByCourse(courseId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/${courseId}`);
+  }
+
+  getQuestionsByFaculty(course_id : number,faculty_id:string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/faculty/${course_id }/${faculty_id}`);
   }
 }

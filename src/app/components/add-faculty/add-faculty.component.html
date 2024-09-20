@@ -1,21 +1,36 @@
-<div>
-    <h2>Add Faculty</h2>
-    <form [formGroup]="facultyForm" (ngSubmit)="addFaculty()" novalidate>
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Name" formControlName="name" />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput placeholder="Email" formControlName="email" />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input matInput type="password" placeholder="Password" formControlName="password" />
-      </mat-form-field>
-      <button color="accent" [disabled]="!facultyForm.valid" mat-raised-button type="submit">
-        <span>Add Faculty</span>
-      </button>
-    </form>
-  </div>
-  
+<div class="add-faculty-form">
+  <h2>Add Faculty</h2>
+  <form [formGroup]="facultyForm" (ngSubmit)="addFaculty()">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" required>
+      <mat-error *ngIf="facultyForm.controls['name'].hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" required>
+      <mat-error *ngIf="facultyForm.controls['email'].hasError('required')">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="facultyForm.controls['email'].hasError('email')">
+        Invalid email format
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" required>
+      <mat-error *ngIf="facultyForm.controls['password'].hasError('required')">
+        Password is required
+      </mat-error>
+      <mat-error *ngIf="facultyForm.controls['password'].hasError('minlength')">
+        Password must be at least 8 characters long
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!facultyForm.valid">Add Faculty</button>
+  </form>
+</div>

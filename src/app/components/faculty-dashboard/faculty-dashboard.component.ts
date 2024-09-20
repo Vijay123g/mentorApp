@@ -1,6 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { FacultyCoursesComponent } from '../faculty-courses/faculty-courses.component';
+import { ViewQuestionsComponent } from '../view-questions/view-questions.component';
 
 @Component({
   selector: 'app-faculty-dashboard',
@@ -9,11 +13,13 @@ import { Router } from '@angular/router';
 })
 export class FacultyDashboardComponent implements OnInit {
   facultyName: string = '';
+  assignedCoursesCount: number = 0;
+  questionsCount: number = 0;
+  validationPendingCount: number = 0;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    const name = localStorage.getItem('name');
     this.authService.userRole$.subscribe(role => {
       if (role === 'Faculty') {
         this.facultyName = localStorage.getItem('name') || '';
@@ -22,6 +28,7 @@ export class FacultyDashboardComponent implements OnInit {
       }
     });
   }
+
 
   viewAssignedCourses(): void {
     this.router.navigate(['/faculty/view-courses']);
@@ -34,4 +41,16 @@ export class FacultyDashboardComponent implements OnInit {
   validateAnswers(): void {
     this.router.navigate(['/faculty/validate-answers']);
   }
+
+  // openViewAssignedCoursesDialog(): void {
+  //   this.dialog.open(FacultyCoursesComponent, {
+  //     width: '400px'
+  //   });
+  // }
+
+  // openViewQuestionsDialog(): void {
+  //   this.dialog.open(ViewQuestionsComponent, {
+  //     width: '400px'
+  //   });
+  // }
 }

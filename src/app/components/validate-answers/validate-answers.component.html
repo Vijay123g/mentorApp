@@ -11,6 +11,11 @@
             <mat-cell *matCellDef="let element"> {{element.student_name}} </mat-cell>
           </ng-container>
 
+          <ng-container matColumnDef="course">
+            <mat-header-cell *matHeaderCellDef>course</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+          </ng-container>
+
           <ng-container matColumnDef="questionText">
             <mat-header-cell *matHeaderCellDef>Question</mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.question_text}} </mat-cell>
@@ -21,16 +26,18 @@
             <mat-header-cell *matHeaderCellDef> Answer Text </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.answer_text}} </mat-cell>
           </ng-container>
-
+          
           <ng-container matColumnDef="validationStatus">
             <mat-header-cell *matHeaderCellDef> Validation Status </mat-header-cell>
             <mat-cell *matCellDef="let element">
-              <mat-select [(ngModel)]="element.validation_status" (selectionChange)="onValidate(element)">
-                <mat-option [value]="true">Validated</mat-option>
-                <mat-option [value]="false">Not Validated</mat-option>
-              </mat-select>
+              <mat-slide-toggle 
+                [(ngModel)]="element.validation_status"
+                (change)="onValidate(element)">
+                {{element.validation_status ? 'Validated' : 'Not Validated'}}
+              </mat-slide-toggle>
             </mat-cell>
           </ng-container>
+
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

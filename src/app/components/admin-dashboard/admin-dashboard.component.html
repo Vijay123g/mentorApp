@@ -1,14 +1,15 @@
-
-   <div class="admin-dashboard">
-    <div class="sidebar" >
-      <ul>
-        <li><a routerLink="/admin/add-faculty">Add Faculty</a></li>
-        <li><a routerLink="/admin/assign-courses">Assign Courses</a></li>
-        <li><a routerLink="/admin/faculty-details">View Faculty Details</a></li>
-        <li><a routerLink="/admin/course-details">View Course Details</a></li>
-      </ul>
-    </div>  
-    <div class="main-content">
+ <mat-sidenav-container>
+    <mat-sidenav mode="side" opened>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/admin/add-faculty">Add Faculty</a>
+        <a mat-list-item routerLink="/admin/assign-courses">Assign Courses</a>
+        <a mat-list-item routerLink="/admin/faculty-details">View Faculty Details</a>
+        <a mat-list-item routerLink="/admin/course-details">View Course Details</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    
+    <mat-sidenav-content>
       <router-outlet></router-outlet>
-    </div>
-  </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  

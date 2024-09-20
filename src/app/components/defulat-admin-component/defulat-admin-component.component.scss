@@ -1,8 +1,46 @@
-h2 {
-    font-size: 1.5rem;
+// h2 {
+//     font-size: 1.5rem;
+//     color: #343a40;
+//     align-items: center;
+//   }
+//   p {
+//     font-size: 1.2rem;
+//     color: #6c757d;
+//   }
+
+.dashboard-summary {
+  padding: 20px;
+  background-color: #f9f9f9;
+
+  h2 {
+    font-size: 1.8rem;
     color: #343a40;
+    margin-bottom: 20px;
   }
-  p {
-    font-size: 1.2rem;
-    color: #6c757d;
+
+  .stats {
+    display: flex;
+    justify-content: space-around;
+
+    .stat-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      width: 30%;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+
+      h3 {
+        font-size: 1.2rem;
+        color: #555;
+      }
+
+      p {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #007bff;
+      }
+    }
   }
+}

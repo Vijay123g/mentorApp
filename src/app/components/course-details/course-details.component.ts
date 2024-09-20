@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CourseService } from 'src/app/services/course.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-course-details',
@@ -8,7 +11,9 @@ import { CourseService } from 'src/app/services/course.service';
   styleUrls: ['./course-details.component.scss']
 })
 export class ViewCourseDetailsComponent implements OnInit {
-  courseList: any[] = [];
+  courseList = new MatTableDataSource<any>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  isCardView = false;
   assignedCourseList: any;
   facultyList: any;
   newCourse = {
@@ -19,12 +24,16 @@ export class ViewCourseDetailsComponent implements OnInit {
 
   isAddingCourse = false;
 
-  constructor(private http: HttpClient, private courseService: CourseService) {}
+  constructor(private http: HttpClient, private courseService: CourseService,private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.getCourseDetails();
     this.loadFacultyDetails();
   }
+
+toggleView(): void {
+  this.isCardView = !this.isCardView;
+}
 
   toggleAddCourse(): void {
     this.isAddingCourse = !this.isAddingCourse;
@@ -34,8 +43,10 @@ export class ViewCourseDetailsComponent implements OnInit {
     this.courseService.getAssignedCourses().subscribe(
       (response: any) => {
         this.courseList = response;
+        this.courseList.paginator = this.paginator;
       },
       (error: any) => {
+        this.snackBar.open('Error fetching courses', 'Close', { duration: 2000 });
         console.error('Error fetching courses', error);
       }
     );
@@ -47,6 +58,7 @@ export class ViewCourseDetailsComponent implements OnInit {
         this.facultyList = response;
       },
       error => {
+        this.snackBar.open('Error fetching faculty details', 'Close', { duration: 2000 });
         console.error('Error fetching faculty details', error);
       }
     );
@@ -55,11 +67,13 @@ export class ViewCourseDetailsComponent implements OnInit {
   createCourse(): void {
     this.courseService.createCourse(this.newCourse).subscribe(
       (response: any) => {
+        this.snackBar.open('CCourse created successfully!', 'Close', { duration: 2000 });
         console.log('Course created successfully:', response);
-        this.getCourseDetails(); // Refresh course list
+        this.getCourseDetails();
         this.isAddingCourse = false;
       },
       (error: any) => {
+        this.snackBar.open('Error creating course', 'Close', { duration: 2000 });
         console.error('Error creating course', error);
       }
     );

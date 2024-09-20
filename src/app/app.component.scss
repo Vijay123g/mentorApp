@@ -2,7 +2,6 @@
 
 .container{
     margin: 10px 10px;
-    background-image: url(/frontend/mentorApp/src/assets/images/back1.jpg);
 }
 
 
@@ -11,3 +10,12 @@
     color: white;
   }
   
+  button {
+    margin-top: 20px;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .assign-course-form, .add-faculty-form, .add-course-form {
+      padding: 10px;
+    }
+  }  

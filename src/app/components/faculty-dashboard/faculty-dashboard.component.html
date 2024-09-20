@@ -1,20 +1,19 @@
-<div class="dashboard-container">
-    <mat-card class="welcome-card">
-      <mat-card-header>
-        <mat-card-title>Welcome, {{ facultyName }}!</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>Your current activities and options are listed below:</p>
-        <div class="button-container">
-          <button mat-raised-button color="primary" [routerLink]="['/faculty/view-assigned-courses']">View Assigned Courses</button>
-          <button mat-raised-button color="primary" [routerLink]="['/faculty/add-question']">Add Questions</button>
-          <button mat-raised-button color="primary" [routerLink]="['/faculty/validate-answers']">Validate Answers</button>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-    
-  <div class="content">
-    <router-outlet></router-outlet>
-  </div>
+  <div class="dashboard-container">
+    <div class="sidenav">
+      <button mat-raised-button color="primary" [routerLink]="['/faculty/view-assigned-courses']">View Assigned Courses</button>
+      <button mat-raised-button color="primary" [routerLink]="['/faculty/add-question']">Add Questions</button>
+      <button mat-raised-button color="primary" [routerLink]="['/faculty/validate-answers']">Validate Answers</button>
+      <button mat-raised-button color="primary" [routerLink]="['/faculty/view-questions']">View Questions</button>
+    </div>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+    </div>
+  
+  
+
+
+  
+  
   

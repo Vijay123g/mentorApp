@@ -1,17 +1,29 @@
-<div class="login-container">
-  <div class="login-left">
+<div class="auth-container">
+  <div class="auth-center">
     <h2>Sign Up! 👋</h2>
-    <p>Fill in the form to create an account.</p>
+    <p>Create your account by filling in the details below.</p>
     <form [formGroup]="signupForm" (ngSubmit)="signup()" novalidate>
       <label for="name">Name</label>
-      <input type="text" id="name" formControlName="name" placeholder="Ex. Vijay">
+      <input type="text" id="name" formControlName="name" placeholder="Your Name">
+      <div *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched" class="error-message">
+        Name is required.
+      </div>
+
       <label for="email">Email</label>
-      <input type="email" id="email" formControlName="email" placeholder="abc@gmail.com">
+      <input type="email" id="email" formControlName="email" placeholder="example@gmail.com">
+      <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="error-message">
+        Please enter a valid email address.
+      </div>
+
       <label for="password">Password</label>
-      <input type="password" id="password" formControlName="password" placeholder="password">
-      <input type="hidden" formControlName="role" />
-      <button type="submit" class="btn btn-signin" [disabled]="!signupForm.valid">Sign Up</button>
+      <input type="password" id="password" formControlName="password" placeholder="Password">
+      <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="error-message">
+        Password is required.
+      </div>
+
+      <button type="submit" class="btn btn-signup" [disabled]="!signupForm.valid">Sign Up</button>
     </form>
+
     <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
     <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
     <p>Already have an account? <a routerLink="/login">Log In</a></p>

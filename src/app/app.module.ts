@@ -24,6 +24,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog'; 
 
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AddFacultyComponent } from './components/add-faculty/add-faculty.component';
@@ -41,6 +43,11 @@ import { DefulatAdminComponentComponent } from './components/defulat-admin-compo
 import { FacultyCoursesComponent } from './components/faculty-courses/faculty-courses.component';
 import { ValidateAnswersComponent } from './components/validate-answers/validate-answers.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { ViewQuestionsComponent } from './components/view-questions/view-questions.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
+
 
 @NgModule({
   declarations: [
@@ -63,6 +70,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     DefulatAdminComponentComponent,
     FacultyCoursesComponent,
     ValidateAnswersComponent,
+    ViewQuestionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,7 +92,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatOptionModule,
     MatSelectModule,
     MatTableModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatSidenavModule,
+    MatSlideToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -18,8 +18,9 @@ export class AnswerService {
     return this.http.get<any>(`${this.baseUrl}/answer/faculty/${courseId}`);
   }
 
-  validateAnswer(answerId: number, validatedBy: string, validationStatus: boolean): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/answer/answer/validate`, { answerId, validatedBy, validationStatus });
+  validateAnswer(answerId: number, validatedBY: string, validationStatus: boolean): Observable<void> {
+    console.log('values',answerId , validatedBY , validationStatus);
+    return this.http.put<void>(`${this.baseUrl}/answer/answer/validate`, { answerId, validatedBY, validationStatus });
   }
   submitAnswer(answerData: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/answer/answer`, answerData);

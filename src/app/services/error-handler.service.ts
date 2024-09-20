@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-
-import { Observable, of } from "rxjs";
+import { Observable, throwError } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -8,8 +7,8 @@ import { Observable, of } from "rxjs";
 export class ErrorHandlerService {
   handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
-      console.log(`${operation} failed: ${error.message}`);
-      return of(result as T);
+      console.error(`${operation} failed: ${error.message}`);
+      return throwError(() => error);
     };
   }
 }

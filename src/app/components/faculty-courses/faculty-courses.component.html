@@ -1,7 +1,6 @@
-<ul>
-    <li *ngFor="let course of courseList">
-      {{ course.title }}
-    </li>
-  </ul>
-
-  
+<h2>You are assigned to the below courses</h2>
+<ul class="course-list">
+  <li *ngFor="let course of courseList" class="course-item">
+    {{ course.title }}
+  </li>
+</ul>

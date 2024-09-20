@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CourseService } from '../../services/course.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-assign-course',
@@ -12,7 +13,7 @@ export class AssignCourseComponent implements OnInit {
   facultyList: any[] = [];  
   coursesList: any[] = []; 
 
-  constructor(private courseService: CourseService) {
+  constructor(private courseService: CourseService,private snackBar: MatSnackBar) {
     this.assignCourseForm = new FormGroup({});
   }
 
@@ -35,6 +36,7 @@ export class AssignCourseComponent implements OnInit {
         this.facultyList = response;
       },
       error => {
+        this.snackBar.open('Error fetching faculty details', 'Close', { duration: 2000 });
         console.error('Error fetching faculty details', error);
       }
     );
@@ -46,6 +48,7 @@ export class AssignCourseComponent implements OnInit {
         this.coursesList = response;
       },
       error => {
+        this.snackBar.open('Error fetching courses', 'Close', { duration: 2000 });
         console.error('Error fetching courses', error);
       }
     );
@@ -55,10 +58,10 @@ export class AssignCourseComponent implements OnInit {
     if (this.assignCourseForm.valid) {
       this.courseService.assignCourse(this.assignCourseForm.value).subscribe(
         () => {
-          alert('Course assigned successfully');
+          this.snackBar.open('Course assigned successfully!', 'Close', { duration: 2000 });
         },
         error => {
-          alert('Error assigning course');
+          this.snackBar.open('Error assigning course', 'Close', { duration: 2000 });
         }
       );
     }

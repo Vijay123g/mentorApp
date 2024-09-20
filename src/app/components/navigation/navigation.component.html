@@ -1,4 +1,4 @@
-<mat-toolbar color="white" style="background-image :url(/frontend/mentorApp/src/assets/images/back1.jpg);">
+<!-- <mat-toolbar color="white">
   <span>
     <a routerLink="/">
       <span>MentorApp</span>
@@ -13,15 +13,31 @@
     </a>
     <a *ngIf="isAuthenticated && userRole === 'Student'" routerLinkActive="active-link" routerLink="/student">
       <span>Student</span>
-    </a>
+    </a> -->
     <!-- <a *ngIf="!isAuthenticated" routerLinkActive="active-link" routerLink="/login">
       <span>Login</span> -->
     <!-- </a> -->
-    <a *ngIf="isAuthenticated" (click)="logout()" routerLinkActive="active-link" routerLink="/login">
-      <span>Logout</span>
-    </a>
+    <!-- <a *ngIf="isAuthenticated" (click)="logout()" routerLinkActive="active-link" routerLink="/login">
+      <span>Logout</span> -->
+    <!-- </a> -->
     <!-- <a *ngIf="!isAuthenticated" routerLinkActive="active-link" routerLink="/signup">
       <span>Signup</span> -->
     <!-- </a> -->
-  </span>
+  <!-- </span>
+</mat-toolbar> -->
+<mat-toolbar color="white">
+  <div class="toolbar-left">
+    <a routerLink="/" class="app-name">
+      MentorApp
+    </a>
+    <span class="dashboard-title">{{ dashboardTitle }}</span>
+  </div>
+  <div class="toolbar-right">
+    <mat-icon>search</mat-icon>
+    <mat-icon>notifications</mat-icon>
+    <mat-icon>account_circle</mat-icon>
+    <a *ngIf="isAuthenticated" (click)="logout()" routerLink="/login">
+      <mat-icon>logout</mat-icon>
+    </a>
+  </div>
 </mat-toolbar>

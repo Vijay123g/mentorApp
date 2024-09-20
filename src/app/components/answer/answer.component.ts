@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AnswerService } from '../../services/answer.service'; 
 import { CourseService } from '../../services/course.service';
-import { AuthService } from '../../services/auth.service'; 
 import { QuestionService } from '../../services/question.service'; 
 import { RegistrationService } from 'src/app/services/registration.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-answer',
   templateUrl: './answer.component.html',
@@ -24,6 +24,7 @@ export class AnswersComponent implements OnInit {
     private courseService: CourseService,
     private questionService: QuestionService,
     private registrationService: RegistrationService,
+    private snackBar: MatSnackBar
   ) {
     this.answersForm = this.fb.group({
       courseId: [null, Validators.required],
@@ -55,6 +56,7 @@ export class AnswersComponent implements OnInit {
           this.coursesList = response;
       },
       error => {
+        this.snackBar.open('Error fetching registered courses', 'Close', { duration: 2000 });
         console.error('Error fetching registered courses', error);
       }
     );
@@ -64,9 +66,10 @@ loadQuestions(courseId: number): void {
   this.questionService.getQuestionsByCourse(courseId).subscribe(
     (data: any) => {
       this.questions = data.questions;
-      console.log('Questions:', this.questions); 
     },
-    error => console.error('Error fetching questions', error)
+    error => {
+      this.snackBar.open('Error fetching questions', 'Close', { duration: 2000 });
+      console.error('Error fetching questions', error) }
   );
 }
 
@@ -77,6 +80,7 @@ loadRegistrationsForCourse(courseId: number): void {
       if (registration) {
         this.registrationId = registration.registration_id;
       } else {
+        this.snackBar.open('No registration found for this course', 'Close', { duration: 2000 });
         console.error('No registration found for this course.');
       }
     },
@@ -103,11 +107,15 @@ submitAnswer(): void {
           validatedBy: facultyId,
           validationStatus:false,
         }).subscribe(
-          () => alert('Answer submitted successfully!'),
-          error => console.error('Error submitting answer', error)
+          () => {
+            this.snackBar.open('Answer Submitted successfully!', 'Close', { duration: 2000 });
+          } ,
+          error =>  this.snackBar.open('Error in Sumbmitting Answer', 'Close', { duration: 2000 })
         );
       },
-      error => console.error('Error fetching faculty', error)
+      error => {
+        this.snackBar.open('Error fetching faculty', 'Close', { duration: 2000 });
+        console.error('Error fetching faculty', error) }
     );
   }
 }
