@@ -50,20 +50,5 @@ export class AdminDashboardComponent implements OnInit {
       width: '600px',
     });
   }
-
-  loadDashboardCounts(): void {
-    // Assuming these services return observables with the count
-    // this.facultyService.getFacultyCount().subscribe(count => {
-    //   this.totalFaculty = count;
-    // });
-
-    // this.courseService.getCourseCount().subscribe(count => {
-    //   this.totalCourses = count;
-    // });
-
-    // this.studentService.getStudentCount().subscribe(count => {
-      // this.totalStudents = count;
-    // });
-
-  }}
+}
 

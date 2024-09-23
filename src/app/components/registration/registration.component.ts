@@ -52,19 +52,20 @@ export class RegistrationsComponent implements OnInit {
     const studentId = localStorage.getItem('userId') || "";
     const isAlreadyRegistered = this.coursesList.some(course => course.id === courseId);
     if (isAlreadyRegistered){
+      this.registrationService.registerCourse(studentId, courseId).subscribe(
+        () =>{
+          this.snackBar.open('Registration Sucess', 'Close', { duration: 3000 });
+           this.router.navigate(['/student'])},
+  
+        error =>{ 
+          this.snackBar.open('Error registering course', 'Close', { duration: 2000 });
+          console.error('Error registering course', error) }
+      );
+      }
+    else{
+    
       alert('You have already registered for this course');
       return;
-    }
-    else{
-    this.registrationService.registerCourse(studentId, courseId).subscribe(
-      () =>{
-        this.snackBar.open('Registration Sucess', 'Close', { duration: 3000 });
-         this.router.navigate(['/student'])},
-
-      error =>{ 
-        this.snackBar.open('Error registering course', 'Close', { duration: 2000 });
-        console.error('Error registering course', error) }
-    );
   }
 
   }

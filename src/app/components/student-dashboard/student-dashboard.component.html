@@ -1,4 +1,4 @@
-<div class="dashboard-container">
+<!-- <div class="dashboard-container">
   <mat-card class="welcome-card">
     <mat-card-header>
       <mat-card-title>Welcome, {{ studentName }}!</mat-card-title>
@@ -15,4 +15,18 @@
 
 <div class="content" style="align-items: center;">
   <router-outlet></router-outlet>
+</div> -->
+
+<div class="dashboard-container">
+  <!-- Sidebar Navigation -->
+  <div class="sidenav">
+    <button mat-raised-button color="primary" (click)="registerCourse()">Register for Course</button>
+    <button mat-raised-button color="primary" (click)="attemptExam()">Attempt Exam</button>
+    <button mat-raised-button color="primary" (click)="viewResults()">View Results</button>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
 </div>
