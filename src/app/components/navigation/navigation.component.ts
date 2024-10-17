@@ -51,7 +51,7 @@ export class NavigationComponent implements OnInit {
   }
 
   setDashboardTitle(): void {
-    const role = localStorage.getItem('role'); // Or fetch from auth service
+    const role = localStorage.getItem('role'); 
     if (role === 'Admin') {
       this.dashboardTitle = 'Admin Dashboard';
     } else if (role === 'Faculty') {

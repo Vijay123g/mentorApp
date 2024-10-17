@@ -51,9 +51,8 @@ export class RegistrationsComponent implements OnInit {
   registerForCourse(courseId:number): void{
     const studentId = localStorage.getItem('userId') || "";
     const isAlreadyRegistered = this.coursesList.some(course => course.id === courseId);
-    if (isAlreadyRegistered){
+    if (!isAlreadyRegistered){
       alert('You have already registered for this course');
-      return;
     }
     else{
     this.registrationService.registerCourse(studentId, courseId).subscribe(

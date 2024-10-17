@@ -46,6 +46,7 @@ const routes: Routes = [
     canActivate: [RoleGuard], 
     data: { role: 'Faculty' },
     children: [
+      { path: '', component: FacultyCoursesComponent },
       { path: 'view-assigned-courses', component: FacultyCoursesComponent },
       { path: 'add-question', component: QuestionsComponent },
       { path: 'validate-answers', component: ValidateAnswersComponent } ,
@@ -58,6 +59,7 @@ const routes: Routes = [
     canActivate: [RoleGuard], 
     data: { role: 'Student' },
     children: [
+      { path: '', component: RegistrationsComponent },
       { path: 'register-course', component: RegistrationsComponent },
       { path: 'attempt-exam', component: AnswersComponent },
       { path: 'view-results', component: ViewResultsComponent } 
